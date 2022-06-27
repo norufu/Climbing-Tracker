@@ -1,0 +1,11 @@
+.tagBubble {
+    border-radius: 50px;
+    width:auto;
+    height:30px;
+    border: none;
+    outline: none;
+    margin:10px;
+    padding-left:15px;
+    padding-right:15px;
+
+}

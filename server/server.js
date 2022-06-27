@@ -135,6 +135,20 @@ app.post('/profile', async (req, res) => {
     }
 })
 
+app.get('/dashboard', async (req, res) => {
+    let id = await decodeJwtId(req.query.token);
+    let dashboardData = await db.getUserData(id);
+    console.log(dashboardData);
+    res.json(dashboardData);
+})
+
+app.post('/addEntry', async (req, res) => {
+    console.log(req.body.token);
+    let id = await decodeJwtId(req.body.token);
+    let returnData = await db.addEntry(id, req.body.entryData)
+    res.json(returnData);
+})
+
 var port = process.env.PORT || 5001
 
 httpServer.listen(port, () => {

@@ -1,0 +1,32 @@
+div {
+    /* border: 1px black dashed; */
+}
+.entryBox {
+    width:60%;
+    height:50px;
+    display:flex;
+    justify-content: row;
+    background-color: aliceblue;
+    margin: 1px;
+}
+
+.difficulty {
+    width:20%;
+    height:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.details {
+    width:80%;
+    height:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.details p {
+    margin:0px;
+}

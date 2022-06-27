@@ -1,0 +1,11 @@
+.addButton {
+    width:25%;
+    height:40px;
+    border-radius: 5px;
+    border:none;
+}
+
+.addButton:hover {
+    cursor:pointer;
+    background-color: rgb(195, 195, 195);
+}

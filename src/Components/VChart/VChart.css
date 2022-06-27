@@ -1,0 +1,4 @@
+.svgBar:hover {
+    fill:rgb(100, 168, 193) !important;
+    cursor: pointer;
+}

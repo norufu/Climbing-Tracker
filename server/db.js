@@ -34,9 +34,9 @@ class Db {
         return(1);
       }
       else { //register user ie insert to db
-        let userStudyData = {wordsKnown: 0, questionData:[], subsData:[]}
-        let settingData = {newPerDay: 5, srsLevels: [4, 8, 24, 48, 120, 336, 1080]};
-        let userId = (await this.userdb.insertOne({username: username, email: email, password: password, studyData: userStudyData, settings: settingData})).insertedId;
+        let userData = {v0: [], v1: [], v2: [], v3: [], v4: [], v5: [], v6: [], v7: [], v8: [], v9: [], v10: [], v11: []}
+        // let userData = {v0: [1,1,1,1,1,1,1,1], v1: [3,3,2,4,2,3,2,3,2,], v2: [4,4,4,3,], v3: [3,3,3], v4: [], v5: [], v6: [], v7: [], v8: [], v9: [], v10: [], v11: []}
+        let userId = (await this.userdb.insertOne({username: username, email: email, password: password, userData: userData})).insertedId;
         console.log("user id")
         console.log(userId.toString());
         return(userId);
@@ -89,6 +89,30 @@ class Db {
     
     async findUserById(id) {
       return(this.userdb.findOne(ObjectId(id)));
+    }
+
+    //dashboard functions
+    async getUserData(id) {
+      let user = await this.findUserById(id);
+      return(user.userData);
+    }
+
+    async addEntry(id, entryData) {
+      let mId = ObjectId(id); //convert to mongo id
+      let user = await this.findUserById(id);
+      console.log(user.userData);
+      user.userData[entryData.difficulty].push(entryData);
+      let newData = user.userData;
+      console.log('new')
+      console.log(user.userData[entryData.difficulty])
+      console.log(newData);
+      this.userdb.updateOne( 
+        { "_id": mId},
+        { "$set": 
+          {"userData": newData}
+        }
+      ); 
+      return(newData);
     }
 } 
 

@@ -1,0 +1,16 @@
+.wrapper {
+  width:100%;
+  height:100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+html {
+  width:99%;
+  height:98%;
+}
+body {
+  width:100%;
+  height:100%;
+}

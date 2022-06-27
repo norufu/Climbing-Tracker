@@ -1,0 +1,43 @@
+.display-none {
+    display: none;
+}
+
+.display-block {
+    display: block;
+}
+
+.modalSection {
+    position:fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: white;
+    width: 60%;
+    height: 70%;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+.modalClose {
+    width:15%;
+    height:30px;
+    border-radius: 5px;
+    outline:none;
+    border:none;
+}
+
+.modalClose:hover {
+    cursor:pointer;
+    background-color: rgb(195, 195, 195);
+}
