@@ -3,11 +3,12 @@ import Axios from 'axios'
 import Chart from '../Components/Chart';
 import VChart from '../Components/VChart/VChart';
 import '../CSS/Dashboard.css';
-import { isToken } from './../Utils';
+import { dataToBoxes, isToken } from './../Utils';
 import AddButton from '../Components/Atoms/AddButton/AddButton';
 import Modal from '../Components/Molecules/Modal';
 import AddForm from '../Components/Molecules/AddForm';
 import EntryBox from '../Components/Atoms/EntryBox/EntryBox';
+import BoxWrapper from '../Components/Molecules/BoxWrapper/BoxWrapper';
 
 
 export default function Dashboard() {
@@ -19,26 +20,18 @@ export default function Dashboard() {
       //get the user's data
       // console.log(localStorage.getItem("token"));
       if(isToken()) {
-        Axios.get("http://localhost:5001/dashboard", {params: {token: localStorage.getItem("token")}}).then(function(response) {
+        Axios.get("http://localhost:5001/userData", {params: {token: localStorage.getItem("token")}}).then(function(response) {
             let data = response.data;    
             console.log(data);
 
-            let tempBoxes = []
-            for(let key in data) {
-              console.log(data[key]);
-              for(let i =0; i < data[key].length; i++) {
-                let k = data[key][i].difficulty + "box" + i;
-                tempBoxes.push(<EntryBox key={k} info={[data[key][i]]}></EntryBox>)
-              }
-            }
-            setEntryBoxes(tempBoxes);
+            let b = dataToBoxes(data);
+            setEntryBoxes(b);
             setDashboardData(data);
         })
       }
   }, []);
 
   const openModal = (e) => {
-    console.log("model")
     setShowModal(true);
   }
 
@@ -48,12 +41,9 @@ export default function Dashboard() {
 
   const addHandler = (e) => {
     e.preventDefault()
-    console.log(e.target[0].value)
     let data = {difficulty: e.target[0].value, description: e.target[1].value, location: e.target[2].value, video: e.target[3].value }
-    console.log(data);
     Axios.post("http://localhost:5001/addEntry", {token: localStorage.getItem("token"), entryData: data}).then(function(response) {
       let data = response.data;    
-      console.log(data);
       setDashboardData(data);
     }).catch(function (error) {
       if (error.response) {
@@ -67,10 +57,14 @@ export default function Dashboard() {
     <div id="chartWrapper">
       {dashboardData && <VChart width={500} height={150} data={dashboardData}></VChart>}
     </div>
-    <Modal closeHandler={closeModal} show={showModal}>
-      <AddForm clickHandler={addHandler}></AddForm>
-    </Modal>
-    <AddButton text={"Add New Route"} clickHandler={openModal}></AddButton>
-    {entryBoxes}
+    <div className='addButtonWrapper'>
+      <Modal closeHandler={closeModal} show={showModal}>
+        <AddForm clickHandler={addHandler}></AddForm>
+      </Modal>
+      <AddButton text={"Add New Route"} clickHandler={openModal}></AddButton>
+    </div>
+
+    <BoxWrapper boxArr={entryBoxes}></BoxWrapper>
+
   </div>)
 }

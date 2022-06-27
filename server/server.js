@@ -135,7 +135,7 @@ app.post('/profile', async (req, res) => {
     }
 })
 
-app.get('/dashboard', async (req, res) => {
+app.get('/userData', async (req, res) => {
     let id = await decodeJwtId(req.query.token);
     let dashboardData = await db.getUserData(id);
     console.log(dashboardData);

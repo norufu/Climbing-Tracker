@@ -3,6 +3,7 @@
     height:40px;
     border-radius: 5px;
     border:none;
+    margin:10px;
 }
 
 .addButton:hover {

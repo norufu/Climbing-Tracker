@@ -8,6 +8,12 @@ div {
     justify-content: row;
     background-color: aliceblue;
     margin: 1px;
+    cursor: pointer;
+}
+
+.entryBox p {
+    color:white;
+    font-size: 17px;
 }
 
 .difficulty {
