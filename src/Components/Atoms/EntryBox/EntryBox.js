@@ -5,6 +5,14 @@ export default function EntryBox({info, clickHandler}) {
     const [boxInfo, setBoxInfo] = useState(info);
     const [colour, setColour] = useState("var(--" + info.difficulty + "c)")
 
+    useEffect(() => {
+        if(info) {
+            let objInfo = JSON.parse(info);
+            setColour("var(--" + objInfo.difficulty + "c)")
+            setBoxInfo(objInfo);
+        }
+    }, [info]);
+    
     const dataPrint = (e) => {
         console.log(boxInfo);
     }
@@ -15,8 +23,8 @@ export default function EntryBox({info, clickHandler}) {
         </div>
         <div className='details'>
             <p>{boxInfo.location}</p>
-            <p>{boxInfo.description}</p>
-        </div>
+            <p>{boxInfo.description}</p> 
+         </div>
     </div>
        
 }

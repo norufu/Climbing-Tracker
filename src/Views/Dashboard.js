@@ -14,7 +14,7 @@ import BoxWrapper from '../Components/Molecules/BoxWrapper/BoxWrapper';
 export default function Dashboard() {
   const [dashboardData, setDashboardData] = useState();
   const [showModal, setShowModal] = useState(false);
-  const [entryBoxes, setEntryBoxes] = useState([]);
+  const [entryBoxes, setEntryBoxes] = useState("");
 
   useEffect(() => {
       //get the user's data
@@ -24,8 +24,8 @@ export default function Dashboard() {
             let data = response.data;    
             console.log(data);
 
-            let b = dataToBoxes(data);
-            setEntryBoxes(b);
+            setEntryBoxes(data);
+            // console.log(data);
             setDashboardData(data);
         })
       }
@@ -63,8 +63,6 @@ export default function Dashboard() {
       </Modal>
       <AddButton text={"Add New Route"} clickHandler={openModal}></AddButton>
     </div>
-
-    <BoxWrapper boxArr={entryBoxes}></BoxWrapper>
-
+    <BoxWrapper data={entryBoxes}></BoxWrapper>
   </div>)
 }

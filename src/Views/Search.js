@@ -9,8 +9,8 @@ import BoxWrapper from '../Components/Molecules/BoxWrapper/BoxWrapper';
 
 export default function Search() {
     const [tags, setTags] = useState([]);
-    const [entryBoxes, setEntryBoxes] = useState([]);
-    const [entryData, setEntryData] = useState([]);
+    const [entryBoxes, setEntryBoxes] = useState();
+    const [entryData, setEntryData] = useState();
     const [originalData, setOriginalData] = useState([]);
 
 
@@ -21,7 +21,7 @@ export default function Search() {
                 console.log(data);
                 setEntryData(data);
                 setOriginalData(data);
-                setEntryBoxes(dataToBoxes(data));
+                setEntryBoxes(data);           
             })
           }
     }, []);
@@ -34,7 +34,7 @@ export default function Search() {
         console.log(entryBoxes);
         console.log("yesh")
         if(tags.length <= 0) {
-            console.log(entryBoxes)
+            setEntryBoxes(originalData);
             return;
         }
         let filteredData = {};
@@ -64,13 +64,12 @@ export default function Search() {
                 }
             }
         }
-        // setEntryData(filteredData);
-        let b = dataToBoxes(filteredData)
-        // setEntryBoxes([<EntryBox key={"ddd"} info={filteredData['v0']}></EntryBox>]);
-        setEntryBoxes(dataToBoxes(filteredData));
+
+        setEntryBoxes(filteredData);
     }
 
     const addTagHandler = (e) => {
+        e.preventDefault();
         let newTag = e.target.value;
         
         setTags(oldData => {
@@ -114,6 +113,6 @@ export default function Search() {
         <div>
             {tags}
         </div>
-        <BoxWrapper boxArr={entryBoxes}></BoxWrapper>
+        <BoxWrapper data={entryBoxes}></BoxWrapper>
         </div>
 }
