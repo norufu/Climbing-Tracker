@@ -6,6 +6,7 @@ import TagInput from '../Components/Molecules/TagInput';
 import '../CSS/Search.css';
 import { dataToBoxes, isToken } from './../Utils';
 import BoxWrapper from '../Components/Molecules/BoxWrapper/BoxWrapper';
+import { useParams } from 'react-router-dom';
 
 export default function Search() {
     const [tags, setTags] = useState([]);
@@ -13,17 +14,30 @@ export default function Search() {
     const [entryData, setEntryData] = useState();
     const [originalData, setOriginalData] = useState([]);
 
+    const { username } = useParams();
 
     useEffect(() => {
-        if(isToken()) {
-            Axios.get("http://localhost:5001/userData", {params: {token: localStorage.getItem("token")}}).then(function(response) {
+        if(username) { //other user
+            Axios.get("http://localhost:5001/userData", {params: {token: localStorage.getItem("token"), username: username}}).then(function(response) {
                 let data = response.data;    
                 console.log(data);
-                setEntryData(data);
+                setEntryBoxes(data);
                 setOriginalData(data);
-                setEntryBoxes(data);           
+                setEntryData(data);
             })
           }
+        else {
+            if(isToken()) { //your data
+                Axios.get("http://localhost:5001/userData", {params: {token: localStorage.getItem("token")}}).then(function(response) {
+                    let data = response.data;    
+                    console.log(data);
+                    setEntryData(data);
+                    setOriginalData(data);
+                    setEntryBoxes(data);           
+                })
+            }
+        }
+
     }, []);
 
     useEffect(() => { //update box array when tags updated

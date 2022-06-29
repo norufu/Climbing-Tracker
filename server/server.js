@@ -136,8 +136,16 @@ app.post('/profile', async (req, res) => {
 })
 
 app.get('/userData', async (req, res) => {
-    let id = await decodeJwtId(req.query.token);
-    let dashboardData = await db.getUserData(id);
+    let dashboardData;
+    console.log(req.query.username)
+    if(req.query.username) {
+        dashboardData = await db.getUserDataByName(req.query.username);
+    }
+    else {
+        let id = await decodeJwtId(req.query.token);
+        dashboardData = await db.getUserDataById(id);
+    }
+
     console.log(dashboardData);
     res.json(dashboardData);
 })
@@ -147,6 +155,25 @@ app.post('/addEntry', async (req, res) => {
     let id = await decodeJwtId(req.body.token);
     let returnData = await db.addEntry(id, req.body.entryData)
     res.json(returnData);
+})
+
+app.get('/getEntry', async (req, res) => {
+    console.log('getting entry');
+    console.log(req.query);
+    if(req.query.token) {
+        let id = await decodeJwtId(req.query.token);
+        db.getEntry(req.query.username, req.query.entryId, id)
+    }
+})
+
+app.post('/deleteEntry', async (req, res) => {
+    console.log('deleting entry');
+    console.log(req.body);
+    // if(req.query.token) {
+    //     let id = await decodeJwtId(req.query.token);
+    //     db.getEntry(req.query.username, req.query.entryId, id)
+    // }
+    res.json(1);
 })
 
 var port = process.env.PORT || 5001

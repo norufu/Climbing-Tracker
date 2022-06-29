@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
 import Axios from 'axios'
 import Chart from '../Components/Chart';
 import VChart from '../Components/VChart/VChart';
@@ -15,12 +16,12 @@ export default function Dashboard() {
   const [dashboardData, setDashboardData] = useState();
   const [showModal, setShowModal] = useState(false);
   const [entryBoxes, setEntryBoxes] = useState("");
+  const { username } = useParams();
 
   useEffect(() => {
       //get the user's data
-      // console.log(localStorage.getItem("token"));
-      if(isToken()) {
-        Axios.get("http://localhost:5001/userData", {params: {token: localStorage.getItem("token")}}).then(function(response) {
+      if(username) { //other user
+        Axios.get("http://localhost:5001/userData", {params: {token: localStorage.getItem("token"), username: username}}).then(function(response) {
             let data = response.data;    
             console.log(data);
 
@@ -28,6 +29,18 @@ export default function Dashboard() {
             // console.log(data);
             setDashboardData(data);
         })
+      }
+      else { //your data
+        if(isToken()) {
+          Axios.get("http://localhost:5001/userData", {params: {token: localStorage.getItem("token")}}).then(function(response) {
+              let data = response.data;    
+              console.log(data);
+  
+              setEntryBoxes(data);
+              // console.log(data);
+              setDashboardData(data);
+          })
+        }
       }
   }, []);
 
@@ -54,6 +67,8 @@ export default function Dashboard() {
 
   return(<div className='dashboardWrapper'>
     {/* <Chart width={500} height={150} numberOfHorizontalGuides={5} numberOfVerticalGuides={10}></Chart> */}
+    {dashboardData == 0 ? <p>User not found or private profile</p> : 
+    <>
     <div id="chartWrapper">
       {dashboardData && <VChart width={500} height={150} data={dashboardData}></VChart>}
     </div>
@@ -64,5 +79,6 @@ export default function Dashboard() {
       <AddButton text={"Add New Route"} clickHandler={openModal}></AddButton>
     </div>
     <BoxWrapper data={entryBoxes}></BoxWrapper>
+    </>}
   </div>)
 }

@@ -36,7 +36,7 @@ class Db {
       else { //register user ie insert to db
         let userData = {v0: [], v1: [], v2: [], v3: [], v4: [], v5: [], v6: [], v7: [], v8: [], v9: [], v10: [], v11: []}
         // let userData = {v0: [1,1,1,1,1,1,1,1], v1: [3,3,2,4,2,3,2,3,2,], v2: [4,4,4,3,], v3: [3,3,3], v4: [], v5: [], v6: [], v7: [], v8: [], v9: [], v10: [], v11: []}
-        let userId = (await this.userdb.insertOne({username: username, email: email, password: password, userData: userData})).insertedId;
+        let userId = (await this.userdb.insertOne({username: username, email: email, password: password, isPrivate: false, userData: userData})).insertedId;
         console.log("user id")
         console.log(userId.toString());
         return(userId);
@@ -57,46 +57,48 @@ class Db {
     async getProfile(id) { //return the user's settings
       let user = await this.findUserById(id);
       console.log(user.settings);
-      let returnData= {username: user.username, settings: user.settings};
+      let returnData= {username: user.username, isPrivate: user.isPrivate};
       return(returnData);
     }
 
     async updateProfile(id, newSettings) { //change user settings
       let mId = ObjectId(id); //convert to mongo id
-      let nwpd = parseInt(newSettings.newWordsPerDay);
-      let newSrs = (newSettings.srsLevels.split(',')).map(Number).filter(num => !Number.isNaN(num)); // change to number and remove any NaN
-      
-      let settings = {newPerDay: nwpd, srsLevels: newSrs};
-      if(Number.isNaN(nwpd) || newSrs.length<1) { //verify it's valid entries
-        console.log("Bad settings input");
-        return(false); //failed
-      }
-      else { //update
-        this.userdb.updateOne( 
-          { "_id": mId},
-          { "$set": 
-            {"settings": settings}
-          }
-        );   
-        return(true); //success, "settings.srsLevels": newSrs}
-      }
+      let isPrivate = newSettings.isPrivate;
+      this.userdb.updateOne( 
+        { "_id": mId},
+        { "$set": 
+          {"isPrivate": isPrivate}
+        }
+      );   
+      return(true); 
     }
 
     //helper functions
     async findUserByEmail(email) {
       return(this.userdb.findOne({email: email}))
     }
-    
+    async findUserByUsername(username) {
+      return(this.userdb.findOne({username: username}))
+    }
     async findUserById(id) {
       return(this.userdb.findOne(ObjectId(id)));
     }
 
     //dashboard functions
-    async getUserData(id) {
+    async getUserDataById(id) {
       let user = await this.findUserById(id);
       return(user.userData);
     }
 
+    async getUserDataByName(username) {
+      let user = await this.findUserByUsername(username);
+
+      console.log(user);
+      if(user == null || user.private) 
+        return(0);
+      return(user.userData);
+    }
+  
     async addEntry(id, entryData) {
       let mId = ObjectId(id); //convert to mongo id
       let user = await this.findUserById(id);
@@ -113,6 +115,19 @@ class Db {
         }
       ); 
       return(newData);
+    }
+
+    async getEntry(username, entryId, id) {
+      let user = this.findUserByUsername(username);
+      if(id && id==user._id) { //your own profile while logged in
+        return("entry if exists");
+      }
+      else if (user.private) { //user is private or entry doesn't exist
+        return(0)
+      }
+      else { // public profile
+        return("entry if exists");
+      }
     }
 } 
 

@@ -8,6 +8,7 @@ import Login from './Views/Login';
 import Profile from './Views/Profile';
 import Dashboard from './Views/Dashboard';
 import Search from './Views/Search';
+import Entry from './Views/Entry';
 
 // import ProtectedRoute from './Components/ProtectedRoute';
 // import Navigation from './Components/Navigation';
@@ -28,6 +29,10 @@ function App() {
           <Route path="/profile" element={<Profile/>}/>
           <Route path="/dashboard" element={<Dashboard />}/>
           <Route path="/search" element={<Search />}/>
+          <Route path="/:username" element={<Dashboard />}/>
+          <Route path="/:username/:entryId" element={<Entry />}/>
+          <Route path="/:username/search" element={<Search />}/>
+
       </Routes>
       </BrowserRouter>
     </div>

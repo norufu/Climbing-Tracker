@@ -8,6 +8,15 @@ import "../../CSS/AddForm.css"
 //location
 
 export default function AddForm({clickHandler}) {
+    const [date, setDatae] = useState();
+
+    useEffect(() => {
+        //default to today/limit future
+        let curDate = new Date()
+        curDate = curDate.toISOString().split('T')[0];        
+        setDatae(curDate);
+    }, []);
+
     return <div className='AddFormWrapper'>
         <form className='AddFormWrapper' onSubmit={clickHandler}>
             <label for="difficulty">Difficulty:</label>
@@ -25,10 +34,14 @@ export default function AddForm({clickHandler}) {
                 <option value="v10">v10</option>
                 <option value="v11">v10+</option>
             </select>
-            <label for="description">description:</label>
-            <input name="description" type="text" id="description"></input>
+            <label for="date">Date:</label>
+            <input name="date" type="date"
+                value={date}
+                min="2000-01-01" max={date} ></input>
             <label for="location">location:</label>
             <input name="location" type="text" id="location"></input>
+            <label for="description">description:</label>
+            <input name="description" type="text" id="description"></input>
             <label for="video">video:</label>
             <input name="video" type="text" id="video"></input>
 
