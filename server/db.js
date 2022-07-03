@@ -103,10 +103,12 @@ class Db {
   
     async addEntry(username, entryData) {
       entryData['username'] = username;
-      this.datadb.insertOne( 
+      await this.datadb.insertOne( 
         entryData
       ); 
-      return(1);
+
+      let data = this.getUserDataByName(username);
+      return(data);
     }
     
     async deleteEntry(username, entryId, id) {

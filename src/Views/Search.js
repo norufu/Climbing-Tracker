@@ -59,9 +59,10 @@ export default function Search() {
                     combinedData += entry[key];
                 }
             }
+            combinedData = combinedData.toLowerCase();
             //check if tags exist
             for(let i = 0; i < tags.length; i ++) {             
-                if (!combinedData.includes(tags[i].key)) {
+                if (!combinedData.includes(tags[i].key.toLowerCase())) {
                     return(false);
                 }
             }
