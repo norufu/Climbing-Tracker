@@ -6,7 +6,6 @@ export default function Login() {
   let navigate = useNavigate(); 
   const [details, setDetails] = useState({ email: "", password: ""});
 
-
   async function handleSubmit(e) {
     e.preventDefault();
     console.log(details);
@@ -15,6 +14,7 @@ export default function Login() {
         console.log("uhhh");
         console.log(response.data.token);
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("username", response.data.username);
         navigate('../dashboard');
 
         // console.log("hadsfah")

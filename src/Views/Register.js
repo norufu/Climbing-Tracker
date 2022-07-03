@@ -16,6 +16,8 @@ export default function Register() {
       Axios.post("http://localhost:5001/register", user).then(function(response) {
         console.log(response);
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("username", user.username);
+
         navigate('../dashboard');
       }).catch(function (error) {
         if (error.response) {

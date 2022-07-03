@@ -7,14 +7,14 @@ export default function BoxWrapper({data}) {
 
     useEffect(() => {
         console.log(data);
-        let tempBoxes = []
-        for(let key in data) {
-            for(let i =0; i < data[key].length; i++) {
-            let k = data[key][i].difficulty + "box" + i;
-            tempBoxes.push(<EntryBox key={k} info={JSON.stringify(data[key][i])}></EntryBox>) //stringify data so it updates properly
+        if(data) {
+            let tempBoxes = []
+            for(let i = 0; i < data.length; i++) {
+                let k = data[i].difficulty + "box" + i;
+                tempBoxes.push(<EntryBox key={k} info={JSON.stringify(data[i])}></EntryBox>) //stringify data so it updates properly
             }
+            setBoxes(tempBoxes);
         }
-        setBoxes(tempBoxes);
     }, [data]);
 
     return <div className='boxWrapper'>

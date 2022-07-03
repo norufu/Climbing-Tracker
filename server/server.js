@@ -106,7 +106,7 @@ app.post('/login', async (req, res) => {
         let token = jwt.sign({id: user._id.toString()}, process.env.JWT_SECRET, {
             expiresIn: 86400
         });
-        res.json({auth: true, token: token});
+        res.json({auth: true, token: token, username: user.username});
     }
     else {
         res.status(403).json({auth: true, message:"invalid credentials"});
@@ -136,43 +136,34 @@ app.post('/profile', async (req, res) => {
 })
 
 app.get('/userData', async (req, res) => {
-    let dashboardData;
-    console.log(req.query.username)
-    if(req.query.username) {
-        dashboardData = await db.getUserDataByName(req.query.username);
-    }
-    else {
-        let id = await decodeJwtId(req.query.token);
-        dashboardData = await db.getUserDataById(id);
-    }
-
-    console.log(dashboardData);
+    let id = await decodeJwtId(req.query.token);
+    let dashboardData = await db.getUserDataByName(req.query.username);
     res.json(dashboardData);
 })
 
 app.post('/addEntry', async (req, res) => {
     console.log(req.body.token);
     let id = await decodeJwtId(req.body.token);
-    let returnData = await db.addEntry(id, req.body.entryData)
+    let returnData = await db.addEntry(req.body.username, req.body.entryData)
     res.json(returnData);
 })
 
 app.get('/getEntry', async (req, res) => {
     console.log('getting entry');
-    console.log(req.query);
+    let id = undefined;
     if(req.query.token) {
-        let id = await decodeJwtId(req.query.token);
-        db.getEntry(req.query.username, req.query.entryId, id)
+        id = await decodeJwtId(req.query.token);
     }
+    let entryData = await db.getEntry(req.query.username, req.query.entryId, id);
+    // console.log(entryData);
+    res.json(entryData);
 })
 
 app.post('/deleteEntry', async (req, res) => {
     console.log('deleting entry');
-    console.log(req.body);
-    // if(req.query.token) {
-    //     let id = await decodeJwtId(req.query.token);
-    //     db.getEntry(req.query.username, req.query.entryId, id)
-    // }
+
+    let id = await decodeJwtId(req.body.token);
+    await db.deleteEntry(req.body.username, req.body.entryId, id);
     res.json(1);
 })
 

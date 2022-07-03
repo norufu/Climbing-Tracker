@@ -28,7 +28,7 @@ export default function Search() {
           }
         else {
             if(isToken()) { //your data
-                Axios.get("http://localhost:5001/userData", {params: {token: localStorage.getItem("token")}}).then(function(response) {
+                Axios.get("http://localhost:5001/userData", {params: {token: localStorage.getItem("token"), username: localStorage.getItem("username")}}).then(function(response) {
                     let data = response.data;    
                     console.log(data);
                     setEntryData(data);
@@ -37,7 +37,6 @@ export default function Search() {
                 })
             }
         }
-
     }, []);
 
     useEffect(() => { //update box array when tags updated
@@ -45,40 +44,29 @@ export default function Search() {
     }, [tags]);
 
     const filterData = (data) => {
-        console.log(entryBoxes);
-        console.log("yesh")
         if(tags.length <= 0) {
             setEntryBoxes(originalData);
             return;
         }
-        let filteredData = {};
-        for(let key in data) {
-            filteredData[key] = [];
-            for(let i = 0; i < data[key].length; i++) {
-                let combinedData = "";
-                for(let dk in data[key][i]) {
-                    if(dk == "video") {
-                        continue;
-                    }
-                    combinedData += data[key][i][dk];
+        let filteredData = data.filter(entry => {
+            let combinedData = "";
+             //combine the data from desired fields
+            for(let key in entry) {
+                if(key == 'uid' || key == '_id' || key == "video") {
+                    continue;
                 }
-                combinedData.replace('undefined', '');
-                let hasTags = true;
-                for(let i = 0; i < tags.length; i++) {
-                    if(!combinedData.includes(tags[i].key)) {
-                        hasTags = false;
-                        break;
-                    }
-                }
-                if(hasTags) {
-                    // console.log(combinedData)
-                    // console.log(data[key][i])
-                    console.log(combinedData)
-                    filteredData[key].push(data[key][i]);
+                if(entry[key] !== undefined) {
+                    combinedData += entry[key];
                 }
             }
-        }
-
+            //check if tags exist
+            for(let i = 0; i < tags.length; i ++) {             
+                if (!combinedData.includes(tags[i].key)) {
+                    return(false);
+                }
+            }
+            return(true);
+        });
         setEntryBoxes(filteredData);
     }
 

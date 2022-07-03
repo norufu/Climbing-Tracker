@@ -6,6 +6,7 @@ require("dotenv").config();
 class Db {
     constructor() {
         this.userdb;
+        this.datadb;
     }
     async connectDB() {
       const client = await mongodb.MongoClient.connect(
@@ -16,6 +17,7 @@ class Db {
       );
     console.log("db is loaded");
     this.userdb = client.db('Timeline').collection("Users");
+    this.datadb = client.db('Timeline').collection("Data");
     return("yes")
     }
 
@@ -34,9 +36,8 @@ class Db {
         return(1);
       }
       else { //register user ie insert to db
-        let userData = {v0: [], v1: [], v2: [], v3: [], v4: [], v5: [], v6: [], v7: [], v8: [], v9: [], v10: [], v11: []}
         // let userData = {v0: [1,1,1,1,1,1,1,1], v1: [3,3,2,4,2,3,2,3,2,], v2: [4,4,4,3,], v3: [3,3,3], v4: [], v5: [], v6: [], v7: [], v8: [], v9: [], v10: [], v11: []}
-        let userId = (await this.userdb.insertOne({username: username, email: email, password: password, isPrivate: false, userData: userData})).insertedId;
+        let userId = (await this.userdb.insertOne({username: username, email: email, password: password, isPrivate: false})).insertedId;
         console.log("user id")
         console.log(userId.toString());
         return(userId);
@@ -84,49 +85,47 @@ class Db {
       return(this.userdb.findOne(ObjectId(id)));
     }
 
-    //dashboard functions
+    //dashboard functionsß
     async getUserDataById(id) {
-      let user = await this.findUserById(id);
-      return(user.userData);
+      let data = await this.datadb.find( { uid: id } ).toArray();
+      return(data);
     }
 
     async getUserDataByName(username) {
       let user = await this.findUserByUsername(username);
-
-      console.log(user);
       if(user == null || user.private) 
         return(0);
-      return(user.userData);
+      else {
+        let data = await this.datadb.find( { username: username } ).toArray();
+        return(data);
+      }
     }
   
-    async addEntry(id, entryData) {
-      let mId = ObjectId(id); //convert to mongo id
-      let user = await this.findUserById(id);
-      console.log(user.userData);
-      user.userData[entryData.difficulty].push(entryData);
-      let newData = user.userData;
-      console.log('new')
-      console.log(user.userData[entryData.difficulty])
-      console.log(newData);
-      this.userdb.updateOne( 
-        { "_id": mId},
-        { "$set": 
-          {"userData": newData}
-        }
+    async addEntry(username, entryData) {
+      entryData['username'] = username;
+      this.datadb.insertOne( 
+        entryData
       ); 
-      return(newData);
+      return(1);
+    }
+    
+    async deleteEntry(username, entryId, id) {
+      this.datadb.remove( { _id:  ObjectId(entryId)} );
     }
 
     async getEntry(username, entryId, id) {
-      let user = this.findUserByUsername(username);
-      if(id && id==user._id) { //your own profile while logged in
-        return("entry if exists");
+      let mId = ObjectId(id); //convert to mongo id
+      let user = await this.findUserByUsername(username);
+      if (id == user._id.toString()) { //your page
+        let data = await this.datadb.find( { _id: ObjectId(entryId) } ).toArray();
+        return(data[0]);
       }
-      else if (user.private) { //user is private or entry doesn't exist
+      else if (user == undefined || user.isPrivate) { //user is private or entry doesn't exist
         return(0)
       }
       else { // public profile
-        return("entry if exists");
+        let data = await this.datadb.find( { _id: ObjectId(entryId) } ).toArray();
+        return(data[0]);
       }
     }
 } 
