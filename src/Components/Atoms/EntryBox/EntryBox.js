@@ -33,7 +33,7 @@ export default function EntryBox({info, clickHandler}) {
             <p>{boxInfo.difficulty}</p>
         </div>
         <div className='details'>
-            <p>{boxInfo.location}</p>
+            <p>{boxInfo.location + " - " + boxInfo.date}</p>
             <p>{boxInfo.description}</p> 
          </div>
          {showPreview && <VideoPreview url={'https://www.youtube.com/embed/6qrVzDOC7Fo?autohide=1&controls=0&modestbranding=1'} ></VideoPreview>}

@@ -39,7 +39,7 @@ export default function AddForm({clickHandler}) {
             <p>
                 <label for="date">Date:</label>
                 <input id = "date" name="date" type="date"
-                    value={date}
+                    placeholder={date}
                     min="2000-01-01" max={date} ></input>
             </p>
 
