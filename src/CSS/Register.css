@@ -1,3 +1,15 @@
+#registerWrapper {
+    height:100%;
+    width:100%;
+}
+#formWrapper {
+    display:flex;
+    align-items: top;
+    padding-top:100px;
+}
+#registerWrapper form {
+
+}
 td {
     padding:5px;
 }

@@ -34,19 +34,21 @@ export default function Login({loginNavHandler}) {
   
   return(
   <div id="loginWrapper">
-    <form onSubmit={handleSubmit}>
-      <table>
-          <tr>
-            <td><label>Email: </label></td>
-            <td><input id ="email" name = "email" type="text" onChange={e => setDetails({...details, email: e.target.value})}></input></td>
-          </tr>
-          <tr>
-          <td><label>Password: </label></td>
-          <td><input id ="password" name = "password" type="text" onChange={e => setDetails({...details, password: e.target.value})}></input></td>
-          </tr>
-      </table>
-      <button id="formSubmitButton" type="submit">Submit</button>
-    </form>
+    <div id="formWrapper">
+        <form onSubmit={handleSubmit}>
+          <table>
+              <tr>
+                <td><label>Email: </label></td>
+                <td><input className='formInput' id ="email" name = "email" type="text" autocomplete="off" onChange={e => setDetails({...details, email: e.target.value})}></input></td>
+              </tr>
+              <tr>
+              <td><label>Password: </label></td>
+              <td><input className='formInput' id ="password" name = "password" type="text" autocomplete="off" onChange={e => setDetails({...details, password: e.target.value})}></input></td>
+              </tr>
+          </table>
+          <button id="formSubmitButton" type="submit">Submit</button>
+        </form>
+    </div>
   </div>
 
   )

@@ -38,25 +38,26 @@ button {
 
 
 .wrapper {
-  width:100%;
-  /* height: calc(100% - 65px) ;  */
+  width:100vw;
+  height:100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-html {
-  width:100%;
-  height: calc(100% - var(--navHeight));
+html, body {
+  width:100vw;
+  height: 100vh;
   background-color: var(--colorBase);
   margin:0px;
   padding:0px;
+  overflow-x: hidden; 
 }
-body {
+/* body {
   width:100%;
   height: calc(100% - var(--navHeight));
   height:100%;
   background-color: var(--colorBase);
   margin:0px;
   padding:0px;
-}
+} */

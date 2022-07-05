@@ -35,29 +35,30 @@ export default function Register({loginNavHandler}) {
 
   return (
     <div id="registerWrapper">
-      <form onSubmit={handleSubmit}>
-        <table>
-            <tr>
-              <td><label>Email: </label></td>
-              <td><input id ="email" name = "email" type="text" onChange={e => setUser({...user, email: e.target.value})}></input></td>
-            </tr>
-            <tr>
-              <td><label>Username: </label></td>
-              <td><input id ="username" name = "username" type="text" onChange={e => setUser({...user, username: e.target.value})}></input></td>
-            </tr>
-            <tr>
-              <td><label>Password: </label></td>
-              <td><input id ="password" name = "password" type="text" onChange={e => setUser({...user, password: e.target.value})}></input></td>
-            </tr>
-            <tr>
-              <td><label>Confirm Password: </label></td>
-              <td><input id ="passwordConfirm" name = "passwordConfirm" type="text" onChange={e => setUser({...user, passwordConfirm: e.target.value})}></input></td>
-            </tr>
-        </table>
-        <button id="formSubmitButton" type="submit">Submit</button>
-      </form>
+      <div id='formWrapper'>
+        <form onSubmit={handleSubmit}>
+          <table>
+              <tr>
+                <td><label>Email: </label></td>
+                <td><input className='formInput' id ="email" name = "email" type="text" autocomplete="off" onChange={e => setUser({...user, email: e.target.value})}></input></td>
+              </tr>
+              <tr>
+                <td><label>Username: </label></td>
+                <td><input className='formInput' id ="username" name = "username" type="text" autocomplete="off" onChange={e => setUser({...user, username: e.target.value})}></input></td>
+              </tr>
+              <tr>
+                <td><label>Password: </label></td>
+                <td><input className='formInput' id ="password" name = "password" type="text" autocomplete="off" onChange={e => setUser({...user, password: e.target.value})}></input></td>
+              </tr>
+              <tr>
+                <td><label>Confirm Password: </label></td>
+                <td><input className='formInput' id ="passwordConfirm" name = "passwordConfirm" type="text" autocomplete="off" onChange={e => setUser({...user, passwordConfirm: e.target.value})}></input></td>
+              </tr>
+          </table>
+          <button id="formSubmitButton" type="submit">Submit</button>
+        </form>
 
-
+      </div>
     </div>
   );
 }

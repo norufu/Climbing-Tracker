@@ -81,12 +81,12 @@ export default function Dashboard() {
     <div id="chartWrapper">
       {dashboardData && <VChart width={500} height={150} data={dashboardData}></VChart>}
     </div>
-    <div className='addButtonWrapper'>
+    {dashboardData && <div className='addButtonWrapper'>
       <Modal closeHandler={closeModal} show={showModal}>
         <AddForm clickHandler={addHandler}></AddForm>
       </Modal>
       <AddButton text={"Add New Route"} clickHandler={openModal}></AddButton>
-    </div>
+    </div> }
     <BoxWrapper data={entryBoxes}></BoxWrapper>
     </>}
   </div>)

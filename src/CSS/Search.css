@@ -3,9 +3,7 @@
     height:100%;
     display:flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
-    padding:50px;
 }
 
 #tagInput {
@@ -16,6 +14,14 @@
     width:80%;
     
 }
+#tagInputDiv {
+    width:100%;
+    height:auto;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding-top:25px;
+}
 
 #tagIn {
     width: 20%;
@@ -24,7 +30,7 @@
 
 #tagButton {
     background-color: var(--color-three);
-    border-radius: 5px;
+    border-radius: 3px;
     border:none;
     color: var(--textColor);
     width:10%;

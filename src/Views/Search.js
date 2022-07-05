@@ -114,7 +114,9 @@ export default function Search() {
     }
 
     return <div id="searchWrapper">
-        <TagInput addTagHandler={addTagHandler}></TagInput>
+        <div id='tagInputDiv'>
+            <TagInput addTagHandler={addTagHandler}></TagInput>
+        </div>
         <div>
             {tags}
         </div>
