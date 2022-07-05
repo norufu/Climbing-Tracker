@@ -9,3 +9,12 @@
 .sectionTitle {
     width:80%;
 }
+
+.deleteEntry {
+    background-color: var(--color-three);
+    color: var(--textColor);
+    border-radius: 3px;
+    border: none;
+    width:15%;
+    height:25px;
+}

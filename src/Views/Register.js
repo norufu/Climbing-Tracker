@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios'
+import '../CSS/Register.css';
 
 import { useNavigate } from "react-router-dom";
 
@@ -35,24 +36,28 @@ export default function Register() {
   return (
     <div id="registerWrapper">
       <form onSubmit={handleSubmit}>
-          <div class="formBlock">
-              <label>Email: </label>
-              <input id ="email" name = "email" type="text" onChange={e => setUser({...user, email: e.target.value})}></input>
-          </div>
-          <div class="formBlock">
-              <label>Username: </label>
-              <input id ="username" name = "username" type="text" onChange={e => setUser({...user, username: e.target.value})}></input>
-          </div>
-          <div class="formBlock">
-              <label>Password: </label>
-              <input id ="password" name = "password" type="text" onChange={e => setUser({...user, password: e.target.value})}></input>
-          </div>
-          <div class="formBlock">
-              <label>Confirm Password: </label>
-              <input id ="passwordConfirm" name = "passwordConfirm" type="text" onChange={e => setUser({...user, passwordConfirm: e.target.value})}></input>
-          </div>
-          <button id="formSubmitButton" type="submit">Submit</button>
+        <table>
+            <tr>
+              <td><label>Email: </label></td>
+              <td><input id ="email" name = "email" type="text" onChange={e => setUser({...user, email: e.target.value})}></input></td>
+            </tr>
+            <tr>
+              <td><label>Username: </label></td>
+              <td><input id ="username" name = "username" type="text" onChange={e => setUser({...user, username: e.target.value})}></input></td>
+            </tr>
+            <tr>
+              <td><label>Password: </label></td>
+              <td><input id ="password" name = "password" type="text" onChange={e => setUser({...user, password: e.target.value})}></input></td>
+            </tr>
+            <tr>
+              <td><label>Confirm Password: </label></td>
+              <td><input id ="passwordConfirm" name = "passwordConfirm" type="text" onChange={e => setUser({...user, passwordConfirm: e.target.value})}></input></td>
+            </tr>
+        </table>
+        <button id="formSubmitButton" type="submit">Submit</button>
       </form>
+
+
     </div>
   );
 }

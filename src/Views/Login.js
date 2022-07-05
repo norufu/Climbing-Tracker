@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import '../CSS/Login.css';
+
 
 export default function Login() {
   let navigate = useNavigate(); 
@@ -32,14 +34,16 @@ export default function Login() {
   return(
   <div id="loginWrapper">
     <form onSubmit={handleSubmit}>
-      <div className="formBlock">
-        <label>Email: </label>
-        <input id ="email" name = "email" type="text" onChange={e => setDetails({...details, email: e.target.value})}></input>
-      </div>
-      <div className="formBlock">
-        <label>Password: </label>
-        <input id ="password" name = "password" type="text" onChange={e => setDetails({...details, password: e.target.value})}></input>
-      </div>
+      <table>
+          <tr>
+            <td><label>Email: </label></td>
+            <td><input id ="email" name = "email" type="text" onChange={e => setDetails({...details, email: e.target.value})}></input></td>
+          </tr>
+          <tr>
+          <td><label>Password: </label></td>
+          <td><input id ="password" name = "password" type="text" onChange={e => setDetails({...details, password: e.target.value})}></input></td>
+          </tr>
+      </table>
       <button id="formSubmitButton" type="submit">Submit</button>
     </form>
   </div>

@@ -55,15 +55,18 @@ export default function Dashboard() {
 
   const addHandler = (e) => {
     e.preventDefault()
-    console.log(e.target);
+    if(!e.target[1].value) {
+      alert("Please add a date");
+      return;
+    }
     let data = {difficulty: e.target[0].value, date: e.target[1].value, location: e.target[2].value, description: e.target[3].value, video: e.target[4].value }
-    console.log(data);
     Axios.post("http://localhost:5001/addEntry", {token: localStorage.getItem("token"), entryData: data, username: localStorage.getItem("username")}).then(function(response) {
       let data = response.data;  
       closeModal();
-      console.log(data);  
       setDashboardData(data);
       setEntryBoxes(data);
+      document.getElementById("video").value = "";
+      document.getElementById("description").value = "";
     }).catch(function (error) {
       if (error.response) {
         alert(error.response.data);//

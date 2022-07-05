@@ -74,7 +74,9 @@ export default function Search() {
     const addTagHandler = (e) => {
         e.preventDefault();
         let newTag = e.target.value;
-        
+        if(newTag == "")
+            return;
+
         setTags(oldData => {
             let isDup = false;
             let tagButton = <TagBubble key={newTag} id={newTag} text={newTag} removeTagHandler={removeTagHandler}></TagBubble>;

@@ -34,7 +34,7 @@ export default function Entry() {
 
         {/* <VideoFrame url={'https://www.youtube.com/embed/6qrVzDOC7Fo?autohide=1&controls=0&modestbranding=1'} width={window.innerWidth/2} height={window.innerWidth/2}></VideoFrame> */}
         <p>{data.description}</p>
-        <button onClick={deleteEntry}>delete entry</button>
+        <button className='deleteEntry' onClick={deleteEntry}>delete entry</button>
     </>}
 
     </div>
