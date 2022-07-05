@@ -12,8 +12,8 @@ export default function TagInput({addTagHandler}) {
         setInput("");
     }
 
-    return <form>
-            <input onChange={handleInput} type="text" value={input} placeholder="filter tag"></input>
-            <button onClick={clickHandler}  value={input} type='submit' id = "searchButton" variant="light">Go</button>
+    return <form id='tagInput'>
+            <input id="tagIn" onChange={handleInput} type="text" value={input} placeholder="filter tag"></input>
+            <button id="tagButton" onClick={clickHandler}  value={input} type='submit' variant="light">Go</button>
         </form>
 }

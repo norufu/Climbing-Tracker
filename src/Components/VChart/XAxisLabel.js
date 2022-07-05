@@ -12,7 +12,7 @@ export default function XAxisLabel({height, barWidth, fontSize}) {
             return(
             <text key={index} x={x} y={y}
             style={{
-              fill: "#808080",
+              fill: "#333333",
               fontSize: fontSize,
               fontFamily: "Helvetica",
               textAnchor: "middle"

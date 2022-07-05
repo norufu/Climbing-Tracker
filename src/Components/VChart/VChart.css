@@ -1,4 +1,11 @@
+#vChart {
+    padding-top:50px;
+}
 .svgBar:hover {
-    fill:rgb(100, 168, 193) !important;
+    fill:#62a9c5 !important;
+    /* background-color: #AD310B; */
+    -webkit-transition: fill 300ms linear;
+    -ms-transition: fill 300ms linear;
+    transition: fill 300ms linear;
     cursor: pointer;
 }

@@ -5,4 +5,28 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    padding:50px;
+}
+
+#tagInput {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:25px;
+    width:80%;
+    
+}
+
+#tagIn {
+    width: 20%;
+    height:22px;
+}
+
+#tagButton {
+    background-color: var(--color-three);
+    border-radius: 5px;
+    border:none;
+    color: var(--textColor);
+    width:10%;
+    height:25px;
 }

@@ -1,0 +1,14 @@
+#navDiv {
+    background-color: var(--color-three);
+    margin:0px;
+    height: var(--navHeight);
+    width:100%;
+    display:flex;
+    justify-content: left;
+    align-items: center;
+    gap: 50px;
+}
+
+a {
+    color:white;
+}

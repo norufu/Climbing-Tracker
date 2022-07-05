@@ -1,6 +1,25 @@
 .AddFormWrapper {
-    display:flex;
+    display:table;
+    /* justify-content: center;
+    align-items: center;
+    flex-direction: column; */
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    width:80%;
+    border-spacing:15px
+}
+
+.AddFormWrapper label { display: table-cell;}
+.AddFormWrapper input { display: table-cell; 
+                        width: 200px}
+.AddFormWrapper select {
+    width:208px;
+}
+#date {
+    width:203px !important;
+}
+.AddFormWrapper p { display: table-row; align-items: center;
+} 
+.label {
+    margin-right:20px
 }

@@ -6,13 +6,20 @@ div {
     height:50px;
     display:flex;
     justify-content: row;
-    background-color: aliceblue;
     margin: 1px;
     cursor: pointer;
+    border: 2px solid rgba(0, 0, 0, 0);
+
 }
 
+.entryBox:hover {
+    background-color: #62a9c5 !important;
+    -webkit-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    transition: background-color 300ms linear;}
+
 .entryBox p {
-    color:white;
+    color:var(--textColor);
     font-size: 17px;
 }
 

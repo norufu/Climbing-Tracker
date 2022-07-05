@@ -9,7 +9,7 @@ import Profile from './Views/Profile';
 import Dashboard from './Views/Dashboard';
 import Search from './Views/Search';
 import Entry from './Views/Entry';
-
+import Nav from './Components/Nav/Nav';
 // import ProtectedRoute from './Components/ProtectedRoute';
 // import Navigation from './Components/Navigation';
 

@@ -2,11 +2,14 @@
     width:25%;
     height:40px;
     border-radius: 5px;
-    border:none;
+    background-color: var(--color-three);
+    border: solid 1px var(--colorBase);
     margin:10px;
+    color:white;
 }
 
 .addButton:hover {
     cursor:pointer;
-    background-color: rgb(195, 195, 195);
+    background-color: var(--color-three);
+    border: solid 1px var(--color-three);
 }
