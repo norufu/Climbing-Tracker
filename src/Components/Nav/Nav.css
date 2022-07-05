@@ -6,9 +6,35 @@
     display:flex;
     justify-content: left;
     align-items: center;
-    gap: 50px;
+    /* gap: 10px; */
+}
+#leftNav {
+    width:80%;
+    height:100%;
+    display:flex;
+    justify-content: left;
+    align-items: center;
+}
+
+#rightNav {
+    width:20%;
+    height:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
 }
 
 a {
     color:white;
+    text-decoration: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+img {
+    width:45%;
+    height:45%;
+    padding-left:20px;
+    cursor: pointer;
 }

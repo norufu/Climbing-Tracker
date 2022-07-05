@@ -8,7 +8,7 @@ import Nav from './Components/Nav/Nav';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Nav></Nav>
+    {/* <Nav></Nav> */}
     <App />
   </React.StrictMode>
 );

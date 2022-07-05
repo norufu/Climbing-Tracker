@@ -4,7 +4,7 @@ import '../CSS/Register.css';
 
 import { useNavigate } from "react-router-dom";
 
-export default function Register() {
+export default function Register({loginNavHandler}) {
   let navigate = useNavigate(); 
   const [user, setUser] = useState({ email: "", username: "", password: "", passwordConfirm: ""});
 
@@ -18,7 +18,7 @@ export default function Register() {
         console.log(response);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("username", user.username);
-
+        loginNavHandler();
         navigate('../dashboard');
       }).catch(function (error) {
         if (error.response) {

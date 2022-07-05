@@ -39,7 +39,7 @@ button {
 
 .wrapper {
   width:100%;
-  height: calc(100% - 65px) ; 
+  /* height: calc(100% - 65px) ;  */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,7 +54,7 @@ html {
 }
 body {
   width:100%;
-  /* height: calc(100% - var(--navHeight)); */
+  height: calc(100% - var(--navHeight));
   height:100%;
   background-color: var(--colorBase);
   margin:0px;

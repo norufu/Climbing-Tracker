@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import '../CSS/Login.css';
 
 
-export default function Login() {
+export default function Login({loginNavHandler}) {
   let navigate = useNavigate(); 
   const [details, setDetails] = useState({ email: "", password: ""});
 
@@ -17,6 +17,7 @@ export default function Login() {
         console.log(response.data.token);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("username", response.data.username);
+        loginNavHandler();
         navigate('../dashboard');
 
         // console.log("hadsfah")
